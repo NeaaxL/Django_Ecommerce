@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Styles for the cart items */
+    h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        border: 2px solid #ccc;
+        padding: 4px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #79aec8;
+        color: #fff;
+        text-decoration: none;
+        margin-top: 10px;
+        border-radius: 4px;
+    }
+
+    a:hover {
+        background-color: #79aec8;
+    }
+</style>
+
+
+    <form method="POST" action="{% url 'update-quantities' %}">
+        {% csrf_token %}
+        {{ forms.management_form  }}
+        {% for form in forms %}
+        <div>
+        <h3>{{ form.instance.product.name }}</h3>
+            <img src="{{ form.instance.product.thumbnail.url }}" alt="Image du produit">
+            <p>{{ form.instance.product.description }}</p>
+            {{ form.as_p }}
+        </div>
+    {% endfor %}
+    <button type="submit">Mettre à jours les quantités</button>
+
+    </form>
+
+
+    <form action="{% url 'create-checkout-session' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Procéder au paiement</button>
+    </form>
+
+    <a href="{% url 'delete-cart' %}">Supprimer le panier</a>
+
+{% endblock %}

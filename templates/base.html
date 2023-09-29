@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>La boutique d'Enzo</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Styles for the banner */
+        .banner {
+            background-color: #79aec8;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Styles for the logo */
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            max-height: 50px;
+            width: auto;
+            margin-right: 10px;
+            border: none; /* Remove the border around the logo */
+        }
+
+        /* Styles for the links in the banner */
+        .banner a {
+            color: #000;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .banner a:hover {
+            text-decoration: underline;
+        }
+
+        /* Styles for the username and buttons */
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .username {
+            margin-right: 10px;
+        }
+
+        .user-actions a {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #79aec8;
+            color: #fff;
+            text-decoration: none;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+
+        .user-actions a:hover {
+            background-color: #337ab7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="banner">
+    <div class="logo">
+        <a href="{% url 'index' %}">
+            <img src="/media/products/logo.png" alt="Logo">
+        </a>
+        <h1>La boutique d'Enzo</h1>
+    </div>
+    <div class="user-actions">
+        {% if user.is_authenticated %}
+        <span class="username">{{ user.email }}</span>
+        <a href="{% url 'profile' %}">Mon profil</a>
+        <a href="{% url 'logout' %}">Déconnexion</a>
+        {% else %}
+        <a href="{% url 'login' %}">Connexion</a>
+        <a href="{% url 'signup' %}">S'inscrire</a>
+        {% endif %}
+        {% if user.cart %}
+        <a href="{% url 'cart'%}">Voir le panier ({{ user.cart.orders.count }})</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    {% block content %}
+    <!-- Content of the page goes here -->
+    {% endblock %}
+</div>
+
+</body>
+</html>

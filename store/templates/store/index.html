@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Styles for the product list */
+    h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        border: 2px solid #ccc;
+        padding: 4px;
+        margin-bottom: 10px;
+    }
+
+    a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #79aec8;
+        color: #fff;
+        text-decoration: none;
+        margin-top: 10px;
+        border-radius: 4px;
+    }
+
+    a:hover {
+        background-color: #79aec8;
+    }
+</style>
+
+{% for product in products %}
+    <h2>{{ product.name }}</h2>
+    <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}">
+    <br><a href="{{ product.get_asolute_url }}">Voir l'article</a>
+
+{% endfor %}
+
+{% endblock %}

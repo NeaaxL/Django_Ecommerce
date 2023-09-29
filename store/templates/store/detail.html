@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border: 2px solid #ccc;
+    padding: 4px;
+}
+
+p {
+    margin: 0;
+}
+
+/* Styles for the "Ajouter au panier" link */
+p a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #79aec8;
+    color: #fff;}
+</style>
+    <h2>{{ product.name }}</h2>
+    <h3>€{{ product.price }}</h3>
+    <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}">
+    <p>{{ product.description }}</p>
+    <p>{{ product.stock }} en stock</p>
+
+    {% if user.is_authenticated %}
+    <p>
+        <a href="{% url 'add-to-cart' product.slug %}">Ajouter au panier</a>
+    </p>
+    {% endif %}
+{% endblock %}
